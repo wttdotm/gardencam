@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Garden Cam - LFGK</title>
+  <style>
+    body {
+        background-color: black;
+        color: #F58426;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
+    h1 {
+        font-size: 2em;
+        font-weight: bold;
+        text-align: center;
+        
+    }
+    h2 {
+        font-size: 1.5em;
+    }
+    .main {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+    #logo {
+        max-height: 30vh;
+        margin-bottom: 20px;
+    }
+
+    #description {
+        max-width: 40vw;
+    }
+
+    @media (max-width: 768px) {
+        #description {
+            max-width: 90vw;
+        }
+    }
+
+  </style>
+</head>
+<body>
+    <div class="main" id="main" >
+        <img id="logo" src="./logo.png" alt="GardenCam Logo">
+        <div id="description">
+            <p style="max-width: 800px;">GardenCam lets you watch the watch party at MSG using publicly available traffic camera feeds!</p>
+        </div>
+
+  <div id="tabHolder" style=" margin: 0 auto;">
+    <div id="tabs" style="display: flex; border-bottom: 2px solid #F58426;">
+      <button class="tabButton" onclick="showTab(1)" id="btnTab1" style="flex:1; background:#006BB6; color:#F58426; border:none; font-size:1.1em; padding:10px 0; cursor:pointer; border-bottom: 4px solid #F58426; font-weight:bold;">Camera 1</button>
+      <button class="tabButton" onclick="showTab(2)" id="btnTab2" style="flex:1; background:#006BB6; color:#F58426; border:none; font-size:1.1em; padding:10px 0; cursor:pointer;">Camera 2</button>
+    </div>
+    <div id="tab1" class="tabContent" style="display: block; padding: 24px 0; text-align: center;">
+      <h2>7th & 32nd</h2>
+      <img id="image1" style="max-width: 100%;" src="https://webcams.nyctmc.org/api/cameras/1e60ade7-c760-48cf-acd9-d9d6cbfa9420/image?cacheAvoidance=sjdhfsdfjh" alt="Garden Cam 1">
+    </div>
+    <div id="tab2" class="tabContent" style="display: none; padding: 24px 0; text-align: center;">
+      <h2>8th & 31st</h2>
+      <img id="image2" style="max-width: 100%;" src="https://webcams.nyctmc.org/api/cameras/ec9ffb62-e3bf-4352-8bcf-7c9adf5fbe9c/image?cacheAvoidance=sjsdffjh" alt="Garden Cam 2">
+    </div>
+  </div>
+</div>
+  <script>
+    // Tab switching logic
+    function showTab(tabNum) {
+      document.getElementById('tab1').style.display = tabNum === 1 ? 'block' : 'none';
+      document.getElementById('tab2').style.display = tabNum === 2 ? 'block' : 'none';
+      // Tab header highlight
+      document.getElementById('btnTab1').style.borderBottom = tabNum === 1 ? '4px solid #F58426' : 'none';
+      document.getElementById('btnTab2').style.borderBottom = tabNum === 2 ? '4px solid #F58426' : 'none';
+      document.getElementById('btnTab1').style.fontWeight = tabNum === 1 ? 'bold' : 'normal';
+      document.getElementById('btnTab2').style.fontWeight = tabNum === 2 ? 'bold' : 'normal';
+    }
+  </script>
+  <script>
+    //update the images every 2 seconds
+    setInterval(() => {
+      document.getElementById('image1').src = `https://webcams.nyctmc.org/api/cameras/1e60ade7-c760-48cf-acd9-d9d6cbfa9420/image?cacheAvoidance=${Math.floor(Math.random() * 100000)}`;
+      document.getElementById('image2').src = `https://webcams.nyctmc.org/api/cameras/ec9ffb62-e3bf-4352-8bcf-7c9adf5fbe9c/image?cacheAvoidance=${Math.floor(Math.random() * 100000)}`;
+    }, 2000);
+  </script>
+</body>
+</html>
