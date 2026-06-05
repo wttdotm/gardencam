@@ -66,8 +66,28 @@
       <button class="tabButton" onclick="showTab(3)" id="btnTab3" style="flex:1; background:#006BB6; color:#F58426; border:none; font-size:1.1em; padding:10px 0; cursor:pointer;">Camera 3</button>
     </div>
     <div id="tab1" class="tabContent" style="display: block; padding: 24px 0; text-align: center;">
-      <h2>7th & 32nd</h2>
-      <img id="image1" style="max-width: 100%;" src="https://webcams.nyctmc.org/api/cameras/1e60ade7-c760-48cf-acd9-d9d6cbfa9420/image?cacheAvoidance=sjdhfsdfjh" alt="Garden Cam 1">
+        <h2>7th & 32nd</h2>
+        <div style="position: relative; display: inline-block; width: 100%;">
+            <img id="image1" style="max-width: 100%;" src="https://webcams.nyctmc.org/api/cameras/1e60ade7-c760-48cf-acd9-d9d6cbfa9420/image?cacheAvoidance=sjdhfsdfjh" alt="Garden Cam 1">
+            <div id="scoreOverlay" style="
+                position: absolute;
+                top: 8px;
+                right: 8px;
+                background-color: white;
+                padding: 4px;
+                border-radius: 5px;
+                max-width: 80%;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                z-index: 10;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.16);
+            ">
+                <div id="knicksScore" style="background-color: #006BB6; color: #F58426; padding: 5px 10px; border-radius: 5px; font-size: 1em; font-weight: bold; margin-right: 8px;">NYK 15</div>
+                <div id="spursScore" style="background-color: #c4ced4; color: #000000; padding: 5px 10px; border-radius: 5px; font-size: 1em; font-weight: bold;">SAS 10</div>
+            </div>
+        </div>
     </div>
     <div id="tab2" class="tabContent" style="display: none; padding: 24px 0; text-align: center;">
       <h2>8th & 31st</h2>
