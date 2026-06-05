@@ -123,6 +123,60 @@
       document.getElementById('image2').src = `https://webcams.nyctmc.org/api/cameras/ec9ffb62-e3bf-4352-8bcf-7c9adf5fbe9c/image?cacheAvoidance=${Math.floor(Math.random() * 100000)}`;
       document.getElementById('image3').src = `https://webcams.nyctmc.org/api/cameras/6a85384f-d82e-4bff-b5f1-15c22cca70e6/image?cacheAvoidance=${Math.floor(Math.random() * 100000)}`;
     }, 2000);
+
+    function startLiveScorePolling() {
+            const url =
+                "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates=20260605";
+
+            async function fetchScore() {
+                try {
+                    const res = await fetch(url);
+                    const data = await res.json();
+
+                    const game = data.events.find(event =>
+                        event.name.includes("Knicks") && event.name.includes("Spurs")
+                    );
+
+                    if (!game) {
+                        console.log("Knicks/Spurs game not found");
+                        return null;
+                    }
+
+                    const competitors = game.competitions[0].competitors;
+
+                    const knicks = competitors.find(
+                        c => c.team.displayName === "New York Knicks"
+                    );
+
+                    const spurs = competitors.find(
+                        c => c.team.displayName === "San Antonio Spurs"
+                    );
+
+                    const score = {
+                        knicks: Number(knicks.score),
+                        spurs: Number(spurs.score),
+                    };
+
+                    document.getElementById('knicksScore').innerHTML = knicks.team.abbreviation + " " + knicks.score;
+                    document.getElementById('spursScore').innerHTML = spurs.team.abbreviation + " " + spurs.score;
+
+                    console.log(score);
+                    return score;
+                } catch (err) {
+                    console.error("Error fetching score:", err);
+                    return null;
+                }
+            }
+
+            fetchScore();
+            return setInterval(fetchScore, 4000);
+        }
+
+        // Start polling
+        const scoreInterval = startLiveScorePolling();
+
+        // Later, to stop:
+        // clearInterval(scoreInterval);
   </script>
 </body>
 </html>
