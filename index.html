@@ -1,163 +1,288 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Garden Cam - LFGK</title>
-  <meta property="og:image" content="./logo.png">
-  <meta property="og:title" content="Garden Cam - LFGK">
-  <meta property="og:description" content="GardenCam lets you watch the watch party at MSG using publicly available traffic camera feeds!">
-  <meta property="og:url" content="https://gardencam.wttdotm.com">
-  <style>
-    body {
-        background-color: black;
-        color: #F58426;
-        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    }
-    h1 {
-        font-size: 2em;
-        font-weight: bold;
-        text-align: center;
-        
-    }
-    h2 {
-        font-size: 1.5em;
-    }
-    .main {
-        max-width: 1200px;
-        margin: 0 auto;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-    }
-    #logo {
-        max-height: 30vh;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Garden Cam - LFGK</title>
 
-    #description {
-        max-width: 40vw;
-    }
+    <meta property="og:image" content="./logo.png">
+    <meta property="og:title" content="Garden Cam - LFGK">
+    <meta property="og:description"
+        content="GardenCam lets you watch the watch party at MSG using publicly available traffic camera feeds!">
+    <meta property="og:url" content="https://gardencam.wttdotm.com">
 
-    .scoreOverlay {
-        position: absolute;
-        top: 8px;
-        right: 8px;
-        background-color: white;
-        padding: 4px;
-        border-radius: 5px;
-        max-width: 80%;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        z-index: 10;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.16);
-    }
-
-    .knicksScore {
-        background-color: #006BB6;
-        color: #F58426;
-        padding: 5px 10px;
-        border-radius: 5px;
-        font-size: 1em;
-        font-weight: bold;
-        margin-right: 8px;
-    }
-    .spursScore {
-        background-color: #c4ced4;
-        color: #000000;
-        padding: 5px 10px;
-        border-radius: 5px;
-        font-size: 1em;
-        font-weight: bold;
-    }
-    @media (max-width: 768px) {
-        #description {
-            max-width: 90vw;
+    <style>
+        body {
+            background-color: black;
+            color: #F58426;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
         }
+
+        h1 {
+            font-size: 2em;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 1.5em;
+        }
+
+        .main {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
         #logo {
-            max-width: 50vw;
+            max-height: 30vh;
         }
-    }
 
-  </style>
+        #description {
+            max-width: 40vw;
+        }
+
+        .scoreOverlay {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background-color: white;
+            padding: 4px;
+            border-radius: 5px;
+            max-width: 80%;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            z-index: 10;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.16);
+        }
+
+        .knicksScore {
+            background-color: #006BB6;
+            color: #F58426;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 1em;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+
+        .spursScore {
+            background-color: #c4ced4;
+            color: #000000;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 1em;
+            font-weight: bold;
+        }
+
+        .tabButton {
+            flex: 1;
+            background: #006BB6;
+            color: #F58426;
+            border: none;
+            font-size: 1.1em;
+            padding: 10px 0;
+            cursor: pointer;
+        }
+
+        .cameraWrap {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .cameraImage {
+            max-width: 100%;
+        }
+
+        .tabContent {
+            padding: 5px 0;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            #description {
+                max-width: 90vw;
+            }
+
+            #logo {
+                max-width: 50vw;
+            }
+        }
+    </style>
 </head>
+
 <body>
-    <div class="main" id="main" >
+    <div class="main" id="main">
         <img id="logo" src="./logo.png" alt="GardenCam Logo">
+
         <div id="description">
-            <p style="max-width: 800px; margin-bottom: 5px;">By <a href="https://wttdotm.com" target="_blank" rel="noopener" style="color: #F58426;">WTTDOTM</a></p>
-            <p style="max-width: 800px;">GardenCam lets you watch the watch party at MSG using <a href="https://webcams.nyctmc.org/map" target="_blank" rel="noopener" style="color: #F58426;">publicly available traffic camera feeds</a>!</p>
+            <p style="max-width: 800px; margin-bottom: 5px;">
+                By <a href="https://wttdotm.com" target="_blank" rel="noopener" style="color: #F58426;">WTTDOTM</a>
+            </p>
+            <p style="max-width: 800px;">
+                GardenCam lets you watch the watch party at MSG using
+                <a href="https://webcams.nyctmc.org/map" target="_blank" rel="noopener" style="color: #F58426;">publicly
+                    available traffic camera feeds</a>!
+            </p>
         </div>
 
-  <div id="tabHolder" style=" margin: 0 auto;">
-    <div id="tabs" style="display: flex; border-bottom: 2px solid #F58426;">
-      <button class="tabButton" onclick="showTab(1)" id="btnTab1" style="flex:1; background:#006BB6; color:#F58426; border:none; font-size:1.1em; padding:10px 0; cursor:pointer; border-bottom: 4px solid #F58426; font-weight:bold;">Camera 1</button>
-      <button class="tabButton" onclick="showTab(2)" id="btnTab2" style="flex:1; background:#006BB6; color:#F58426; border:none; font-size:1.1em; padding:10px 0; cursor:pointer;">Camera 2</button>
-      <button class="tabButton" onclick="showTab(3)" id="btnTab3" style="flex:1; background:#006BB6; color:#F58426; border:none; font-size:1.1em; padding:10px 0; cursor:pointer;">Camera 3</button>
-    </div>
-    <div style="text-align: center; font-size: 0.75em; color: #F58426; padding: 4px 0;">gardencam.wttdotm.com</div>
-    <div id="tab1" class="tabContent" style="display: block; padding: 5px 0; text-align: center;">
-          <div style="position: relative; display: inline-block; width: 100%;">
-            <img id="image1" style="max-width: 100%;" src="https://webcams.nyctmc.org/api/cameras/1e60ade7-c760-48cf-acd9-d9d6cbfa9420/image?cacheAvoidance=sjdhfsdfjh" alt="Garden Cam 1">
-            <div class="scoreOverlay">
-                <div id="knicksScore" class="knicksScore" >NYK __</div>
-                <div id="spursScore" class="spursScore">SAS __</div>
+        <div id="tabHolder" style="margin: 0 auto;">
+            <div id="tabs" style="display: flex; border-bottom: 2px solid #F58426;">
+                <button class="tabButton" onclick="showTab(1)" id="btnTab1">Camera 1</button>
+                <button class="tabButton" onclick="showTab(2)" id="btnTab2">Camera 2</button>
+                <button class="tabButton" onclick="showTab(3)" id="btnTab3">Camera 3</button>
+            </div>
+
+            <div style="text-align: center; font-size: 0.75em; color: #F58426; padding: 4px 0;">
+                gardencam.wttdotm.com | 2s refresh rate but cams can be buggy
+            </div>
+
+            <div id="tab1" class="tabContent" style="display: block;">
+                <div class="cameraWrap">
+                    <img id="image1" class="cameraImage"
+                        src="https://webcams.nyctmc.org/api/cameras/1e60ade7-c760-48cf-acd9-d9d6cbfa9420/image?cacheAvoidance=initial"
+                        alt="Garden Cam 1">
+                    <div class="scoreOverlay">
+                        <div class="knicksScore">NYK __</div>
+                        <div class="spursScore">SAS __</div>
+                    </div>
+                </div>
+                <h2>7th &amp; 32nd</h2>
+            </div>
+
+            <div id="tab2" class="tabContent" style="display: none;">
+                <div class="cameraWrap">
+                    <img id="image2" class="cameraImage"
+                        src="https://webcams.nyctmc.org/api/cameras/ec9ffb62-e3bf-4352-8bcf-7c9adf5fbe9c/image?cacheAvoidance=initial"
+                        alt="Garden Cam 2">
+                    <div class="scoreOverlay">
+                        <div class="knicksScore">NYK __</div>
+                        <div class="spursScore">SAS __</div>
+                    </div>
+                </div>
+                <h2>8th &amp; 31st</h2>
+            </div>
+
+            <div id="tab3" class="tabContent" style="display: none;">
+                <div class="cameraWrap">
+                    <img id="image3" class="cameraImage"
+                        src="https://webcams.nyctmc.org/api/cameras/6a85384f-d82e-4bff-b5f1-15c22cca70e6/image?cacheAvoidance=initial"
+                        alt="Garden Cam 3">
+                    <div class="scoreOverlay">
+                        <div class="knicksScore">NYK __</div>
+                        <div class="spursScore">SAS __</div>
+                    </div>
+                </div>
+                <h2>8th &amp; 33rd</h2>
             </div>
         </div>
-      <h2>7th & 32nd</h2>
     </div>
-    <div id="tab2" class="tabContent" style="display: none; padding: 5px 0; text-align: center;">
-        <div style="position: relative; display: inline-block; width: 100%;">
 
-            <img id="image2" style="max-width: 100%;" src="https://webcams.nyctmc.org/api/cameras/ec9ffb62-e3bf-4352-8bcf-7c9adf5fbe9c/image?cacheAvoidance=sjsdffjh" alt="Garden Cam 2">
-            <div class="scoreOverlay">
-                <div class="knicksScore">NYK __</div>
-                <div class="spursScore">SAS __</div>
-            </div>
-    </div>
-      <h2>8th & 31st</h2>
-    </div>
-    <div id="tab3" class="tabContent" style="display: none; padding: 5px 0; text-align: center;">
-        <div style="position: relative; display: inline-block; width: 100%;">
-            <img id="image3" style="max-width: 100%;" src="https://webcams.nyctmc.org/api/cameras/6a85384f-d82e-4bff-b5f1-15c22cca70e6/image?cacheAvoidance=dsff" alt="Garden Cam 3">
-            <div class="scoreOverlay">
-                <div class="knicksScore">NYK __</div>
-                <div class="spursScore">SAS __</div>
-            </div>
-        </div>
-      <h2>8th & 33rd</h2>
-    </div>
-  </div>
-</div>
-  <script>
-    fetch(`https://wemakeinter.net/diyPixel/morryProjPixel.php?event=pageView&project=gardencam`);
-    // Tab switching logic
-    function showTab(tabNum) {
-      document.getElementById('tab1').style.display = tabNum === 1 ? 'block' : 'none';
-      document.getElementById('tab2').style.display = tabNum === 2 ? 'block' : 'none';
-      document.getElementById('tab3').style.display = tabNum === 3 ? 'block' : 'none';
-      // Tab header highlight
-      document.getElementById('btnTab1').style.borderBottom = tabNum === 1 ? '4px solid #F58426' : 'none';
-      document.getElementById('btnTab2').style.borderBottom = tabNum === 2 ? '4px solid #F58426' : 'none';
-      document.getElementById('btnTab1').style.fontWeight = tabNum === 1 ? 'bold' : 'normal';
-      document.getElementById('btnTab2').style.fontWeight = tabNum === 2 ? 'bold' : 'normal';
-      document.getElementById('btnTab3').style.borderBottom = tabNum === 3 ? '4px solid #F58426' : 'none';
-      document.getElementById('btnTab3').style.fontWeight = tabNum === 3 ? 'bold' : 'normal';
-    }
-  </script>
-  <script>
-    //update the images every 2 seconds
-    setInterval(() => {
-      document.getElementById('image1').src = `https://webcams.nyctmc.org/api/cameras/1e60ade7-c760-48cf-acd9-d9d6cbfa9420/image?cacheAvoidance=${Math.floor(Math.random() * 100000)}`;
-      document.getElementById('image2').src = `https://webcams.nyctmc.org/api/cameras/ec9ffb62-e3bf-4352-8bcf-7c9adf5fbe9c/image?cacheAvoidance=${Math.floor(Math.random() * 100000)}`;
-      document.getElementById('image3').src = `https://webcams.nyctmc.org/api/cameras/6a85384f-d82e-4bff-b5f1-15c22cca70e6/image?cacheAvoidance=${Math.floor(Math.random() * 100000)}`;
-    }, 2000);
+    <script>
+        fetch(`https://wemakeinter.net/diyPixel/morryProjPixel.php?event=pageView&project=gardencam`);
 
-    function startLiveScorePolling() {
-            const url =
-                "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates=20260605";
+        const cameraUrls = {
+                1: "https://webcams.nyctmc.org/api/cameras/1e60ade7-c760-48cf-acd9-d9d6cbfa9420/image",
+                2: "https://webcams.nyctmc.org/api/cameras/ec9ffb62-e3bf-4352-8bcf-7c9adf5fbe9c/image",
+                3: "https://webcams.nyctmc.org/api/cameras/6a85384f-d82e-4bff-b5f1-15c22cca70e6/image"
+            };
+
+            let activeTab = 1;
+            let refreshTimeout = null;
+            let refreshGeneration = 0;
+            let currentlyLoading = false;
+
+            function updateTabUI(tabNum) {
+                document.getElementById('tab1').style.display = tabNum === 1 ? 'block' : 'none';
+                document.getElementById('tab2').style.display = tabNum === 2 ? 'block' : 'none';
+                document.getElementById('tab3').style.display = tabNum === 3 ? 'block' : 'none';
+
+                document.getElementById('btnTab1').style.borderBottom = tabNum === 1 ? '4px solid #F58426' : 'none';
+                document.getElementById('btnTab2').style.borderBottom = tabNum === 2 ? '4px solid #F58426' : 'none';
+                document.getElementById('btnTab3').style.borderBottom = tabNum === 3 ? '4px solid #F58426' : 'none';
+
+                document.getElementById('btnTab1').style.fontWeight = tabNum === 1 ? 'bold' : 'normal';
+                document.getElementById('btnTab2').style.fontWeight = tabNum === 2 ? 'bold' : 'normal';
+                document.getElementById('btnTab3').style.fontWeight = tabNum === 3 ? 'bold' : 'normal';
+            }
+
+            function showTab(tabNum) {
+                activeTab = tabNum;
+                updateTabUI(tabNum);
+                startActiveTabPolling(true);
+            }
+
+            function startActiveTabPolling(immediate = false) {
+                refreshGeneration++;
+                currentlyLoading = false;
+
+                if (refreshTimeout) {
+                    clearTimeout(refreshTimeout);
+                    refreshTimeout = null;
+                }
+
+                const myGeneration = refreshGeneration;
+
+                const loadOnce = () => {
+                    if (currentlyLoading) return;
+
+                    const tabAtStart = activeTab;
+                    const imgEl = document.getElementById(`image${tabAtStart}`);
+
+                    if (!imgEl || !cameraUrls[tabAtStart]) return;
+
+                    currentlyLoading = true;
+
+                    const nextSrc = `${cameraUrls[tabAtStart]}?cacheAvoidance=${Date.now()}`;
+
+                    imgEl.onload = () => {
+                        if (myGeneration !== refreshGeneration || tabAtStart !== activeTab) return;
+
+                        currentlyLoading = false;
+
+                        refreshTimeout = setTimeout(() => {
+                            if (myGeneration === refreshGeneration && tabAtStart === activeTab) {
+                                loadOnce();
+                            }
+                        }, 2000);
+                    };
+
+                    imgEl.onerror = () => {
+                        if (myGeneration !== refreshGeneration || tabAtStart !== activeTab) return;
+
+                        currentlyLoading = false;
+
+                        refreshTimeout = setTimeout(() => {
+                            if (myGeneration === refreshGeneration && tabAtStart === activeTab) {
+                                loadOnce();
+                            }
+                        }, 2000);
+                    };
+
+                    imgEl.src = nextSrc;
+                };
+
+                if (immediate) {
+                    loadOnce();
+                } else {
+                    refreshTimeout = setTimeout(loadOnce, 2000);
+                }
+            }
+
+            updateTabUI(activeTab);
+            startActiveTabPolling(true);
+    </script>
+
+    <script>
+        function startLiveScorePolling() {
+            const url = "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates=20260605";
 
             async function fetchScore() {
                 try {
@@ -183,13 +308,23 @@
                         c => c.team.displayName === "San Antonio Spurs"
                     );
 
+                    if (!knicks || !spurs) {
+                        console.log("Could not find both teams");
+                        return null;
+                    }
+
                     const score = {
                         knicks: Number(knicks.score),
                         spurs: Number(spurs.score),
                     };
 
-                    Array.from(document.getElementsByClassName('knicksScore')).forEach(el => el.innerText = "NYK" + " " + score.knicks)
-                    Array.from(document.getElementsByClassName('spursScore')).forEach(el => el.innerText = "SAS" + " " + score.spurs)
+                    Array.from(document.getElementsByClassName('knicksScore')).forEach(el => {
+                        el.innerText = "NYK " + score.knicks;
+                    });
+
+                    Array.from(document.getElementsByClassName('spursScore')).forEach(el => {
+                        el.innerText = "SAS " + score.spurs;
+                    });
 
                     console.log(score);
                     return score;
@@ -203,11 +338,8 @@
             return setInterval(fetchScore, 4000);
         }
 
-        // Start polling
         const scoreInterval = startLiveScorePolling();
-
-        // Later, to stop:
-        // clearInterval(scoreInterval);
-  </script>
+    </script>
 </body>
+
 </html>
