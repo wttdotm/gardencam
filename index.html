@@ -282,7 +282,8 @@
 
     <script>
         function startLiveScorePolling() {
-            const url = "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates=20260605";
+            const today = new Date().toLocaleDateString('en-CA', {timeZone: 'America/New_York'}).replace(/-/g, '');
+            const url = `https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates=${today}`;
 
             async function fetchScore() {
                 try {
