@@ -139,6 +139,7 @@
                 <button class="tabButton" onclick="showTab(2)" id="btnTab2">Cam 2</button>
                 <button class="tabButton" onclick="showTab(3)" id="btnTab3">Cam 3</button>
                 <button class="tabButton" onclick="showTab(4)" id="btnTab4">Cam 4</button>
+                <button class="tabButton" onclick="showTab(5)" id="btnTab5">Cam 5</button>
             </div>
 
             <div style="text-align: center; font-size: 0.75em; color: #F58426; padding: 4px 0;">
@@ -196,6 +197,19 @@
                 </div>
                 <h2>8th &amp; 34th</h2>
             </div>
+
+            <div id="tab5" class="tabContent" style="display: none;">
+                <div class="cameraWrap">
+                    <img id="image5" class="cameraImage"
+                        src="https://webcams.nyctmc.org/api/cameras/8ee72946-49e0-4f49-991d-4f52b1206ed7/image?cacheAvoidance=initial"
+                        alt="Garden Cam 5">
+                    <div class="scoreOverlay">
+                        <div class="knicksScore">NYK __</div>
+                        <div class="spursScore">SAS __</div>
+                    </div>
+                </div>
+                <h2>6th &amp; 33rd</h2>
+            </div>
         </div>
     </div>
 
@@ -206,7 +220,8 @@
                 1: "https://webcams.nyctmc.org/api/cameras/1e60ade7-c760-48cf-acd9-d9d6cbfa9420/image",
                 2: "https://webcams.nyctmc.org/api/cameras/ec9ffb62-e3bf-4352-8bcf-7c9adf5fbe9c/image",
                 3: "https://webcams.nyctmc.org/api/cameras/6a85384f-d82e-4bff-b5f1-15c22cca70e6/image",
-                4: "https://webcams.nyctmc.org/api/cameras/f2964d50-042c-4021-8b52-992c08c6ff6f/image"
+                4: "https://webcams.nyctmc.org/api/cameras/f2964d50-042c-4021-8b52-992c08c6ff6f/image",
+                5: "https://webcams.nyctmc.org/api/cameras/8ee72946-49e0-4f49-991d-4f52b1206ed7/image"
             };
 
             let activeTab = 1;
@@ -219,16 +234,19 @@
                 document.getElementById('tab2').style.display = tabNum === 2 ? 'block' : 'none';
                 document.getElementById('tab3').style.display = tabNum === 3 ? 'block' : 'none';
                 document.getElementById('tab4').style.display = tabNum === 4 ? 'block' : 'none';
+                document.getElementById('tab5').style.display = tabNum === 5 ? 'block' : 'none';
 
                 document.getElementById('btnTab1').style.borderBottom = tabNum === 1 ? '4px solid #F58426' : 'none';
                 document.getElementById('btnTab2').style.borderBottom = tabNum === 2 ? '4px solid #F58426' : 'none';
                 document.getElementById('btnTab3').style.borderBottom = tabNum === 3 ? '4px solid #F58426' : 'none';
                 document.getElementById('btnTab4').style.borderBottom = tabNum === 4 ? '4px solid #F58426' : 'none';
+                document.getElementById('btnTab5').style.borderBottom = tabNum === 5 ? '4px solid #F58426' : 'none';
 
                 document.getElementById('btnTab1').style.fontWeight = tabNum === 1 ? 'bold' : 'normal';
                 document.getElementById('btnTab2').style.fontWeight = tabNum === 2 ? 'bold' : 'normal';
                 document.getElementById('btnTab3').style.fontWeight = tabNum === 3 ? 'bold' : 'normal';
                 document.getElementById('btnTab4').style.fontWeight = tabNum === 4 ? 'bold' : 'normal';
+                document.getElementById('btnTab5').style.fontWeight = tabNum === 5 ? 'bold' : 'normal';
             }
 
             function showTab(tabNum) {
