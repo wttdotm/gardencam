@@ -100,11 +100,69 @@
                 gap: 8px;
             }
         }
+
+        /* Opacity slider */
+        #opacity-bar {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(0,0,0,0.85);
+            border: 1px solid #F58426;
+            border-radius: 6px;
+            padding: 8px 14px;
+            z-index: 100;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+        }
+        #opacity-bar.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        #opacity-bar label {
+            color: #F58426;
+            font-size: 0.8em;
+            white-space: nowrap;
+        }
+        #opacity-slider {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 140px;
+            height: 4px;
+            background: #333;
+            border-radius: 2px;
+            outline: none;
+        }
+        #opacity-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #F58426;
+            cursor: pointer;
+            border: none;
+        }
+        #opacity-val {
+            color: #F58426;
+            font-size: 0.75em;
+            min-width: 28px;
+            text-align: right;
+        }
     </style>
 </head>
 <body>
     <div class="container" id="container">
         <div class="grid" id="grid"></div>
+    </div>
+
+    <div id="opacity-bar">
+        <label>opacity</label>
+        <input type="range" id="opacity-slider" min="0" max="100" value="100">
+        <span id="opacity-val">100%</span>
     </div>
 
     <script>
@@ -160,6 +218,31 @@
         });
 
         fetch(`https://wemakeinter.net/diyPixel/morryProjPixel.php?event=pageView&project=gardencam-grid`);
+
+        // Opacity slider — toggle with 'O' key
+        const opacityBar = document.getElementById('opacity-bar');
+        const opacitySlider = document.getElementById('opacity-slider');
+        const opacityVal = document.getElementById('opacity-val');
+
+        let sliderVisible = false;
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'o' || e.key === 'O') {
+                // Don't trigger if typing in an input
+                if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+                e.preventDefault();
+                sliderVisible = !sliderVisible;
+                opacityBar.classList.toggle('visible', sliderVisible);
+            }
+        });
+
+        opacitySlider.addEventListener('input', () => {
+            const v = opacitySlider.value;
+            opacityVal.textContent = v + '%';
+            document.querySelectorAll('.cell img').forEach(img => {
+                img.style.opacity = v / 100;
+            });
+        });
     </script>
 </body>
 </html>
