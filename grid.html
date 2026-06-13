@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Garden Cam — Grid</title>
+
+    <meta property="og:image" content="./logo.png">
+    <meta property="og:title" content="Garden Cam Grid">
+    <meta property="og:url" content="https://gardencam.wttdotm.com/grid.html">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: #000;
+            color: #F58426;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 10px;
+        }
+
+        .container {
+            position: relative;
+            width: 100%;
+            max-width: 1800px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            grid-template-rows: repeat(4, 1fr);
+            gap: 18px;
+            width: 100%;
+        }
+
+        .cell {
+            position: relative;
+            aspect-ratio: 704 / 480;
+            overflow: hidden;
+            background: #111;
+        }
+
+        .cell img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Logo overlay layer — sits above grid, absolutely positioned */
+        .logo-layer {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .gutter-logo {
+            position: absolute;
+            width: 22px;
+            height: 22px;
+            opacity: 0.6;
+            transform: translate(-50%, -50%);
+            image-rendering: auto;
+        }
+
+        /* Loading spinner */
+        .cell::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: #1a1a1a;
+            z-index: 0;
+        }
+        .cell.loaded::before {
+            display: none;
+        }
+
+        .cell::after {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            width: 24px; height: 24px;
+            margin: -12px 0 0 -12px;
+            border: 2px solid #333;
+            border-top-color: #F58426;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            z-index: 1;
+        }
+        .cell.loaded::after {
+            display: none;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 1000px) {
+            .grid {
+                grid-template-columns: repeat(3, 1fr);
+                grid-template-rows: repeat(7, 1fr);
+                gap: 12px;
+            }
+            .grid .cell:nth-child(20) { display: none; }
+            .grid .cell:nth-child(19) { display: none; }
+        }
+
+        @media (max-width: 600px) {
+            .grid {
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-rows: repeat(10, 1fr);
+                gap: 8px;
+            }
+            .gutter-logo { width: 14px; height: 14px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="container">
+        <div class="grid" id="grid"></div>
+        <div class="logo-layer" id="logoLayer"></div>
+    </div>
+
+    <script>
+        const cameraIds = [
+            '1e60ade7-c760-48cf-acd9-d9d6cbfa9420',  // 1  7th & 32nd
+            'ec9ffb62-e3bf-4352-8bcf-7c9adf5fbe9c',  // 2  8th & 31st
+            '6a85384f-d82e-4bff-b5f1-15c22cca70e6',  // 3  8th & 33rd
+            'f2964d50-042c-4021-8b52-992c08c6ff6f',  // 4  8th & 34th
+            '8ee72946-49e0-4f49-991d-4f52b1206ed7',  // 5  6th & 33rd
+            'f06979b2-3497-4330-9882-a06c8a442b7c',  // 6  6th & 34th
+            '81db80c2-13fe-4ae7-8b47-c08aa42d512f',  // 7  5th & 66th · CP
+            'cd949f21-54b2-4d11-8aae-4ffba8654271',  // 8  5th & 60th · CP
+            '332f161d-47cb-4c8a-b6b6-5ad48a55c978',  // 9  6th & 59th · CP
+            'c34ca47e-e375-4b9f-a8d7-f9737566b783',  // 10 6th & 42nd · BP
+            '4f3f56e3-f68e-4b60-a4ba-153ecb9094f7',  // 11 6th & 50th · RCMH
+            '6a5f91d8-042f-4678-a722-2c3c560dedf2',  // 12 Brooklyn Bowl
+            'a249b3ee-bde9-4d6d-9a18-9cd2108d2eb0',  // 13 Extra Butter
+            'cb68b8b1-9093-4f2e-acf2-8133b047e8df',  // 14 GAP1
+            '1c51b3ec-3d29-4025-928d-4e182e7c0bd5',  // 15 GAP2
+            '23994d9e-7e59-4808-8d47-405f779d19cf',  // 16 O'Hanlon's
+            'b5cf34ce-697e-42a1-b22f-8eb2c1f3e79e',  // 17 One4One
+            'a3058350-1552-459f-8379-2fd06895e70a',  // 18 Delancey & Bowery
+            '1e60ade7-c760-48cf-acd9-d9d6cbfa9420',  // 19 DUPE: 7th & 32nd
+            'ec9ffb62-e3bf-4352-8bcf-7c9adf5fbe9c',  // 20 DUPE: 8th & 31st
+        ];
+
+        const labels = [
+            '7th & 32nd', '8th & 31st', '8th & 33rd', '8th & 34th', '6th & 33rd',
+            '6th & 34th', '5th & 66th', '5th & 60th', '6th & 59th', '6th & 42nd',
+            '6th & 50th', 'Wythe & N 12th', 'Allen & Delancey', 'Grand Army Plaza',
+            'Grand Army Plaza', '14th & 1st', '1st & 1st', 'Delancey & Bowery',
+            '7th & 32nd', '8th & 31st'
+        ];
+
+        const GRID_COLS = 5;
+        const GRID_ROWS = 4;
+
+        const grid = document.getElementById('grid');
+        const logoLayer = document.getElementById('logoLayer');
+
+        // Build cells
+        cameraIds.forEach((id, i) => {
+            const cell = document.createElement('div');
+            cell.className = 'cell';
+            cell.id = 'cell-' + i;
+            const img = document.createElement('img');
+            img.src = `https://webcams.nyctmc.org/api/cameras/${id}/image`;
+            img.alt = labels[i];
+            img.title = labels[i];
+            img.onload = () => cell.classList.add('loaded');
+            img.onerror = () => cell.classList.add('loaded'); // show anyway
+            cell.appendChild(img);
+            grid.appendChild(cell);
+        });
+
+        // Place logos at gutter intersection points (where horizontal & vertical gutters cross)
+        function placeLogos() {
+            logoLayer.innerHTML = '';
+            const containerRect = logoLayer.getBoundingClientRect();
+
+            // Compute the x positions of each vertical grid line (0..GRID_COLS)
+            const vLines = [];
+            for (let v = 0; v <= GRID_COLS; v++) {
+                if (v === 0) {
+                    const cell = document.getElementById('cell-0');
+                    vLines.push(cell.getBoundingClientRect().left - containerRect.left);
+                } else if (v === GRID_COLS) {
+                    const cell = document.getElementById('cell-' + (GRID_COLS - 1));
+                    vLines.push(cell.getBoundingClientRect().right - containerRect.left);
+                } else {
+                    const cellA = document.getElementById('cell-' + (v - 1));
+                    const cellB = document.getElementById('cell-' + v);
+                    const aRight = cellA.getBoundingClientRect().right - containerRect.left;
+                    const bLeft = cellB.getBoundingClientRect().left - containerRect.left;
+                    vLines.push((aRight + bLeft) / 2);
+                }
+            }
+
+            // Compute the y positions of each horizontal grid line (0..GRID_ROWS)
+            const hLines = [];
+            for (let h = 0; h <= GRID_ROWS; h++) {
+                if (h === 0) {
+                    const cell = document.getElementById('cell-0');
+                    hLines.push(cell.getBoundingClientRect().top - containerRect.top);
+                } else if (h === GRID_ROWS) {
+                    const idx = (GRID_ROWS - 1) * GRID_COLS;
+                    const cell = document.getElementById('cell-' + idx);
+                    hLines.push(cell.getBoundingClientRect().bottom - containerRect.top);
+                } else {
+                    const idxA = (h - 1) * GRID_COLS;
+                    const idxB = h * GRID_COLS;
+                    const cellA = document.getElementById('cell-' + idxA);
+                    const cellB = document.getElementById('cell-' + idxB);
+                    const aBottom = cellA.getBoundingClientRect().bottom - containerRect.top;
+                    const bTop = cellB.getBoundingClientRect().top - containerRect.top;
+                    hLines.push((aBottom + bTop) / 2);
+                }
+            }
+
+            // Place logo at each intersection of vertical and horizontal grid lines
+            for (let v = 0; v <= GRID_COLS; v++) {
+                for (let h = 0; h <= GRID_ROWS; h++) {
+                    const logo = document.createElement('img');
+                    logo.src = './logo.png';
+                    logo.className = 'gutter-logo';
+                    logo.style.left = vLines[v] + 'px';
+                    logo.style.top = hLines[h] + 'px';
+                    logoLayer.appendChild(logo);
+                }
+            }
+        }
+
+        // Place on load and resize
+        window.addEventListener('load', () => {
+            // slight delay to let images start loading and layout settle
+            setTimeout(placeLogos, 200);
+            setTimeout(placeLogos, 1000);
+        });
+        window.addEventListener('resize', placeLogos);
+
+        // Auto-refresh all images every 4s
+        setInterval(() => {
+            document.querySelectorAll('.cell img').forEach((img, i) => {
+                img.src = `https://webcams.nyctmc.org/api/cameras/${cameraIds[i]}/image?t=${Date.now()}`;
+            });
+            // Re-place logos after layout may shift
+            setTimeout(placeLogos, 500);
+        }, 4000);
+
+        fetch(`https://wemakeinter.net/diyPixel/morryProjPixel.php?event=pageView&project=gardencam-grid`);
+    </script>
+</body>
+</html>
