@@ -245,15 +245,6 @@
         });
         window.addEventListener('resize', placeLogos);
 
-        // Auto-refresh all images every 4s
-        setInterval(() => {
-            document.querySelectorAll('.cell img').forEach((img, i) => {
-                img.src = `https://webcams.nyctmc.org/api/cameras/${cameraIds[i]}/image?t=${Date.now()}`;
-            });
-            // Re-place logos after layout may shift
-            setTimeout(placeLogos, 500);
-        }, 4000);
-
         fetch(`https://wemakeinter.net/diyPixel/morryProjPixel.php?event=pageView&project=gardencam-grid`);
     </script>
 </body>
