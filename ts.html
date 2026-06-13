@@ -4,13 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Garden Cam - LFGK</title>
+    <title>Garden Cam Extras - LFGK</title>
 
     <meta property="og:image" content="./logo.png">
-    <meta property="og:title" content="Garden Cam - LFGK">
+    <meta property="og:title" content="Garden Cam Extras - LFGK">
     <meta property="og:description"
-        content="GardenCam lets you watch the watch party at MSG using publicly available traffic camera feeds!">
-    <meta property="og:url" content="https://gardencam.wttdotm.com">
+        content="More NYC views around Times Square!">
+    <meta property="og:url" content="https://gardencam.wttdotm.com/extras.html">
 
     <style>
         body {
@@ -106,6 +106,14 @@
             text-align: center;
         }
 
+        .locationLabel {
+            font-size: 0.7em;
+            color: #F58426;
+            opacity: 0.7;
+            margin: 0;
+            padding: 0;
+        }
+
         @media (max-width: 768px) {
             #description {
                 max-width: 90vw;
@@ -132,217 +140,228 @@
                 By <a href="https://wttdotm.com" target="_blank" rel="noopener" style="color: #F58426;">WTTDOTM</a> <a href="https://wttdotm.com/assets/resume/swe_resume.pdf" target="_blank" rel="noopener" style="color: #F58426;">(hire me)</a>
             </p>
             <p style="max-width: 800px;">
-                GardenCam lets you watch the Knicks hype around MSG using
-                <a href="https://webcams.nyctmc.org/map" target="_blank" rel="noopener" style="color: #F58426;">publicly
-                    available traffic camera feeds</a>!
-                <a href="./extras.html" style="color: #F58426; font-size: 0.85em;">Other locations →</a>
-                <a href="./ts.html" style="color: #F58426; font-size: 0.85em;">Times Square →</a>
+                Views around Times Square!
+                <a href="./index.html" style="color: #F58426; font-size: 0.85em;">← Back to MSG</a>
+                <a href="./extras.html" style="color: #F58426; font-size: 0.85em;">Extras Cameras →</a>
             </p>
         </div>
 
         <div id="tabHolder" style="margin: 0 auto;">
             <div id="tabs" style="display: flex; border-bottom: 2px solid #F58426;">
-                <button class="tabButton" onclick="showTab(1)" id="btnTab1">Cam 1</button>
-                <button class="tabButton" onclick="showTab(2)" id="btnTab2">Cam 2</button>
-                <button class="tabButton" onclick="showTab(3)" id="btnTab3">Cam 3</button>
-                <button class="tabButton" onclick="showTab(4)" id="btnTab4">Cam 4</button>
-                <button class="tabButton" onclick="showTab(5)" id="btnTab5">Cam 5</button>
-                <button class="tabButton" onclick="showTab(6)" id="btnTab6">Cam 6</button>
+                <button class="tabButton" onclick="showTab(1)" id="btnTab1">TS1</button>
+                <button class="tabButton" onclick="showTab(2)" id="btnTab2">TS2</button>
+                <button class="tabButton" onclick="showTab(3)" id="btnTab3">TS3</button>
+                <button class="tabButton" onclick="showTab(4)" id="btnTab4">TS4</button>
+                <button class="tabButton" onclick="showTab(5)" id="btnTab5">TS5</button>
+                <button class="tabButton" onclick="showTab(6)" id="btnTab6">TS6</button>
             </div>
 
             <div style="text-align: center; font-size: 0.75em; color: #F58426; padding: 4px 0;">
-                gardencam.wttdotm.com | 2s refresh rate but cams can be buggy
+                gardencam.wttdotm.com/extras | 2s refresh rate but cams can be buggy
             </div>
 
+
+<!-- 
+            
+https://webcams.nyctmc.org/api/cameras/0c9a2836-c408-48d3-85c7-1977c33d9133/image?t=1781386765104
+https://webcams.nyctmc.org/api/cameras/1927b469-e2dc-4943-a70c-e6e52fd4c48c/image?t=1781386773871
+https://webcams.nyctmc.org/api/cameras/f3d82b25-6b10-44c7-ae89-30df075a7ac8/image?t=1781386784206
+https://webcams.nyctmc.org/api/cameras/dbbf45f6-7d87-46fa-825f-454a7e2bbcad/image?t=1781386793453
+https://webcams.nyctmc.org/api/cameras/76faba94-f9e5-42d7-981e-0cbbbfd4bc21/image?t=1781386802020
+https://webcams.nyctmc.org/api/cameras/8cd15417-5b79-4065-9165-4b6ff0ff3f53/image?t=1781386830586
+-->
             <div id="tab1" class="tabContent" style="display: block;">
                 <div class="cameraWrap">
                     <img id="image1" class="cameraImage"
-                        src="https://webcams.nyctmc.org/api/cameras/1e60ade7-c760-48cf-acd9-d9d6cbfa9420/image?cacheAvoidance=initial"
-                        alt="Garden Cam 1">
+                        src="https://webcams.nyctmc.org/api/cameras/0c9a2836-c408-48d3-85c7-1977c33d9133/image?t=1781386765104&cacheAvoidance=initial"
+                        alt="TS1">
                     <div class="scoreOverlay">
                         <div class="knicksScore">NYK __</div>
                         <div class="spursScore">SAS __</div>
                     </div>
                 </div>
-                <h2>7th &amp; 32nd</h2>
+                <p class="locationLabel">Times Square</p>
+                <h2>TS1</h2>
             </div>
 
             <div id="tab2" class="tabContent" style="display: none;">
                 <div class="cameraWrap">
                     <img id="image2" class="cameraImage"
-                        src="https://webcams.nyctmc.org/api/cameras/ec9ffb62-e3bf-4352-8bcf-7c9adf5fbe9c/image?cacheAvoidance=initial"
-                        alt="Garden Cam 2">
+                        src="https://webcams.nyctmc.org/api/cameras/1927b469-e2dc-4943-a70c-e6e52fd4c48c/image?t=1781386773871&cacheAvoidance=initial"
+                        alt="TS2">
                     <div class="scoreOverlay">
                         <div class="knicksScore">NYK __</div>
                         <div class="spursScore">SAS __</div>
                     </div>
                 </div>
-                <h2>8th &amp; 31st</h2>
+                <p class="locationLabel">Times Square</p>
+                <h2>TS2</h2>
             </div>
 
             <div id="tab3" class="tabContent" style="display: none;">
                 <div class="cameraWrap">
                     <img id="image3" class="cameraImage"
-                        src="https://webcams.nyctmc.org/api/cameras/6a85384f-d82e-4bff-b5f1-15c22cca70e6/image?cacheAvoidance=initial"
-                        alt="Garden Cam 3">
+                        src="https://webcams.nyctmc.org/api/cameras/f3d82b25-6b10-44c7-ae89-30df075a7ac8/image?t=1781386784206&cacheAvoidance=initial"
+                        alt="TS3">
                     <div class="scoreOverlay">
                         <div class="knicksScore">NYK __</div>
                         <div class="spursScore">SAS __</div>
                     </div>
                 </div>
-                <h2>8th &amp; 33rd</h2>
+                <p class="locationLabel">Times Square</p>
+                <h2>TS3</h2>
             </div>
 
             <div id="tab4" class="tabContent" style="display: none;">
                 <div class="cameraWrap">
                     <img id="image4" class="cameraImage"
-                        src="https://webcams.nyctmc.org/api/cameras/f2964d50-042c-4021-8b52-992c08c6ff6f/image?cacheAvoidance=initial"
-                        alt="Garden Cam 4">
+                        src="https://webcams.nyctmc.org/api/cameras/dbbf45f6-7d87-46fa-825f-454a7e2bbcad/image?t=1781386793453&cacheAvoidance=initial"
+                        alt="TS4">
                     <div class="scoreOverlay">
                         <div class="knicksScore">NYK __</div>
                         <div class="spursScore">SAS __</div>
                     </div>
                 </div>
-                <h2>8th &amp; 34th</h2>
+                <p class="locationLabel">Times Square</p>
+                <h2>TS4</h2>
             </div>
 
             <div id="tab5" class="tabContent" style="display: none;">
                 <div class="cameraWrap">
                     <img id="image5" class="cameraImage"
-                        src="https://webcams.nyctmc.org/api/cameras/8ee72946-49e0-4f49-991d-4f52b1206ed7/image?cacheAvoidance=initial"
-                        alt="Garden Cam 5">
+                        src="https://webcams.nyctmc.org/api/cameras/76faba94-f9e5-42d7-981e-0cbbbfd4bc21/image?t=1781386802020&cacheAvoidance=initial"
+                        alt="TS5">
                     <div class="scoreOverlay">
                         <div class="knicksScore">NYK __</div>
                         <div class="spursScore">SAS __</div>
                     </div>
                 </div>
-                <h2>6th &amp; 33rd</h2>
+                <p class="locationLabel">Times Square</p>
+                <h2>TS5</h2>
             </div>
 
             <div id="tab6" class="tabContent" style="display: none;">
                 <div class="cameraWrap">
                     <img id="image6" class="cameraImage"
-                        src="https://webcams.nyctmc.org/api/cameras/f06979b2-3497-4330-9882-a06c8a442b7c/image?cacheAvoidance=initial"
-                        alt="Garden Cam 6">
+                        src="https://webcams.nyctmc.org/api/cameras/8cd15417-5b79-4065-9165-4b6ff0ff3f53/image?t=1781386830586&cacheAvoidance=initial"
+                        alt="TS6">
                     <div class="scoreOverlay">
                         <div class="knicksScore">NYK __</div>
                         <div class="spursScore">SAS __</div>
                     </div>
                 </div>
-                <h2>6th &amp; 34th</h2>
+                <p class="locationLabel">Times Square</p>
+                <h2>TS6</h2>
             </div>
         </div>
-
-        <p style="position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); font-size: 0.85em; margin: 0; white-space: nowrap;">
-            <a href="https://drive.google.com/drive/folders/10sd-jvrk5kQX-mMLMHU_1vdhYn8EvsqS?usp=drive_link" target="_blank" rel="noopener" style="color: #F58426;">Watch June 8th perimeter footage</a>
-        </p>
     </div>
 
     <script>
         fetch(`https://wemakeinter.net/diyPixel/morryProjPixel.php?event=pageView&project=gardencam`);
 
+        // Set correct camera urls for Times Square tabs!
         const cameraUrls = {
-                1: "https://webcams.nyctmc.org/api/cameras/1e60ade7-c760-48cf-acd9-d9d6cbfa9420/image",
-                2: "https://webcams.nyctmc.org/api/cameras/ec9ffb62-e3bf-4352-8bcf-7c9adf5fbe9c/image",
-                3: "https://webcams.nyctmc.org/api/cameras/6a85384f-d82e-4bff-b5f1-15c22cca70e6/image",
-                4: "https://webcams.nyctmc.org/api/cameras/f2964d50-042c-4021-8b52-992c08c6ff6f/image",
-                5: "https://webcams.nyctmc.org/api/cameras/8ee72946-49e0-4f49-991d-4f52b1206ed7/image",
-                6: "https://webcams.nyctmc.org/api/cameras/f06979b2-3497-4330-9882-a06c8a442b7c/image"
-            };
+            1: "https://webcams.nyctmc.org/api/cameras/0c9a2836-c408-48d3-85c7-1977c33d9133/image",
+            2: "https://webcams.nyctmc.org/api/cameras/1927b469-e2dc-4943-a70c-e6e52fd4c48c/image",
+            3: "https://webcams.nyctmc.org/api/cameras/f3d82b25-6b10-44c7-ae89-30df075a7ac8/image",
+            4: "https://webcams.nyctmc.org/api/cameras/dbbf45f6-7d87-46fa-825f-454a7e2bbcad/image",
+            5: "https://webcams.nyctmc.org/api/cameras/76faba94-f9e5-42d7-981e-0cbbbfd4bc21/image",
+            6: "https://webcams.nyctmc.org/api/cameras/8cd15417-5b79-4065-9165-4b6ff0ff3f53/image"
+        };
 
-            let activeTab = 1;
-            let refreshTimeout = null;
-            let refreshGeneration = 0;
-            let currentlyLoading = false;
+        let activeTab = 1;
+        let refreshTimeout = null;
+        let refreshGeneration = 0;
+        let currentlyLoading = false;
 
-            function updateTabUI(tabNum) {
-                document.getElementById('tab1').style.display = tabNum === 1 ? 'block' : 'none';
-                document.getElementById('tab2').style.display = tabNum === 2 ? 'block' : 'none';
-                document.getElementById('tab3').style.display = tabNum === 3 ? 'block' : 'none';
-                document.getElementById('tab4').style.display = tabNum === 4 ? 'block' : 'none';
-                document.getElementById('tab5').style.display = tabNum === 5 ? 'block' : 'none';
-                document.getElementById('tab6').style.display = tabNum === 6 ? 'block' : 'none';
+        function updateTabUI(tabNum) {
+            document.getElementById('tab1').style.display = tabNum === 1 ? 'block' : 'none';
+            document.getElementById('tab2').style.display = tabNum === 2 ? 'block' : 'none';
+            document.getElementById('tab3').style.display = tabNum === 3 ? 'block' : 'none';
+            document.getElementById('tab4').style.display = tabNum === 4 ? 'block' : 'none';
+            document.getElementById('tab5').style.display = tabNum === 5 ? 'block' : 'none';
+            document.getElementById('tab6').style.display = tabNum === 6 ? 'block' : 'none';
 
-                document.getElementById('btnTab1').style.borderBottom = tabNum === 1 ? '4px solid #F58426' : 'none';
-                document.getElementById('btnTab2').style.borderBottom = tabNum === 2 ? '4px solid #F58426' : 'none';
-                document.getElementById('btnTab3').style.borderBottom = tabNum === 3 ? '4px solid #F58426' : 'none';
-                document.getElementById('btnTab4').style.borderBottom = tabNum === 4 ? '4px solid #F58426' : 'none';
-                document.getElementById('btnTab5').style.borderBottom = tabNum === 5 ? '4px solid #F58426' : 'none';
-                document.getElementById('btnTab6').style.borderBottom = tabNum === 6 ? '4px solid #F58426' : 'none';
+            document.getElementById('btnTab1').style.borderBottom = tabNum === 1 ? '4px solid #F58426' : 'none';
+            document.getElementById('btnTab2').style.borderBottom = tabNum === 2 ? '4px solid #F58426' : 'none';
+            document.getElementById('btnTab3').style.borderBottom = tabNum === 3 ? '4px solid #F58426' : 'none';
+            document.getElementById('btnTab4').style.borderBottom = tabNum === 4 ? '4px solid #F58426' : 'none';
+            document.getElementById('btnTab5').style.borderBottom = tabNum === 5 ? '4px solid #F58426' : 'none';
+            document.getElementById('btnTab6').style.borderBottom = tabNum === 6 ? '4px solid #F58426' : 'none';
 
-                document.getElementById('btnTab1').style.fontWeight = tabNum === 1 ? 'bold' : 'normal';
-                document.getElementById('btnTab2').style.fontWeight = tabNum === 2 ? 'bold' : 'normal';
-                document.getElementById('btnTab3').style.fontWeight = tabNum === 3 ? 'bold' : 'normal';
-                document.getElementById('btnTab4').style.fontWeight = tabNum === 4 ? 'bold' : 'normal';
-                document.getElementById('btnTab5').style.fontWeight = tabNum === 5 ? 'bold' : 'normal';
-                document.getElementById('btnTab6').style.fontWeight = tabNum === 6 ? 'bold' : 'normal';
+            document.getElementById('btnTab1').style.fontWeight = tabNum === 1 ? 'bold' : 'normal';
+            document.getElementById('btnTab2').style.fontWeight = tabNum === 2 ? 'bold' : 'normal';
+            document.getElementById('btnTab3').style.fontWeight = tabNum === 3 ? 'bold' : 'normal';
+            document.getElementById('btnTab4').style.fontWeight = tabNum === 4 ? 'bold' : 'normal';
+            document.getElementById('btnTab5').style.fontWeight = tabNum === 5 ? 'bold' : 'normal';
+            document.getElementById('btnTab6').style.fontWeight = tabNum === 6 ? 'bold' : 'normal';
+        }
+
+        function showTab(tabNum) {
+            activeTab = tabNum;
+            updateTabUI(tabNum);
+            startActiveTabPolling(true);
+        }
+
+        function startActiveTabPolling(immediate = false) {
+            refreshGeneration++;
+            currentlyLoading = false;
+
+            if (refreshTimeout) {
+                clearTimeout(refreshTimeout);
+                refreshTimeout = null;
             }
 
-            function showTab(tabNum) {
-                activeTab = tabNum;
-                updateTabUI(tabNum);
-                startActiveTabPolling(true);
-            }
+            const myGeneration = refreshGeneration;
 
-            function startActiveTabPolling(immediate = false) {
-                refreshGeneration++;
-                currentlyLoading = false;
+            const loadOnce = () => {
+                if (currentlyLoading) return;
 
-                if (refreshTimeout) {
-                    clearTimeout(refreshTimeout);
-                    refreshTimeout = null;
-                }
+                const tabAtStart = activeTab;
+                const imgEl = document.getElementById(`image${tabAtStart}`);
 
-                const myGeneration = refreshGeneration;
+                if (!imgEl || !cameraUrls[tabAtStart]) return;
 
-                const loadOnce = () => {
-                    if (currentlyLoading) return;
+                currentlyLoading = true;
 
-                    const tabAtStart = activeTab;
-                    const imgEl = document.getElementById(`image${tabAtStart}`);
+                const nextSrc = `${cameraUrls[tabAtStart]}?cacheAvoidance=${Date.now()}`;
 
-                    if (!imgEl || !cameraUrls[tabAtStart]) return;
+                imgEl.onload = () => {
+                    if (myGeneration !== refreshGeneration || tabAtStart !== activeTab) return;
 
-                    currentlyLoading = true;
+                    currentlyLoading = false;
 
-                    const nextSrc = `${cameraUrls[tabAtStart]}?cacheAvoidance=${Date.now()}`;
-
-                    imgEl.onload = () => {
-                        if (myGeneration !== refreshGeneration || tabAtStart !== activeTab) return;
-
-                        currentlyLoading = false;
-
-                        refreshTimeout = setTimeout(() => {
-                            if (myGeneration === refreshGeneration && tabAtStart === activeTab) {
-                                loadOnce();
-                            }
-                        }, 2000);
-                    };
-
-                    imgEl.onerror = () => {
-                        if (myGeneration !== refreshGeneration || tabAtStart !== activeTab) return;
-
-                        currentlyLoading = false;
-
-                        refreshTimeout = setTimeout(() => {
-                            if (myGeneration === refreshGeneration && tabAtStart === activeTab) {
-                                loadOnce();
-                            }
-                        }, 2000);
-                    };
-
-                    imgEl.src = nextSrc;
+                    refreshTimeout = setTimeout(() => {
+                        if (myGeneration === refreshGeneration && tabAtStart === activeTab) {
+                            loadOnce();
+                        }
+                    }, 2000);
                 };
 
-                if (immediate) {
-                    loadOnce();
-                } else {
-                    refreshTimeout = setTimeout(loadOnce, 2000);
-                }
-            }
+                imgEl.onerror = () => {
+                    if (myGeneration !== refreshGeneration || tabAtStart !== activeTab) return;
 
-            updateTabUI(activeTab);
-            startActiveTabPolling(true);
+                    currentlyLoading = false;
+
+                    refreshTimeout = setTimeout(() => {
+                        if (myGeneration === refreshGeneration && tabAtStart === activeTab) {
+                            loadOnce();
+                        }
+                    }, 2000);
+                };
+
+                imgEl.src = nextSrc;
+            };
+
+            if (immediate) {
+                loadOnce();
+            } else {
+                refreshTimeout = setTimeout(loadOnce, 2000);
+            }
+        }
+
+        updateTabUI(activeTab);
+        startActiveTabPolling(true);
     </script>
 
     <script>
