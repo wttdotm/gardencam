@@ -52,9 +52,15 @@
             background: #006BB6;
             color: #F58426;
             border: none;
+            border-bottom: 3px solid transparent;
             font-size: 0.88em;
             padding: 10px 0;
             cursor: pointer;
+            transition: border-bottom 0.15s;
+        }
+        .tabButton.active {
+            border-bottom: 6px solid #F58426;
+            font-weight: bold;
         }
 
         .cameraWrap {
@@ -147,17 +153,10 @@
             document.getElementById('tab1').style.display = tabNum === 1 ? 'block' : 'none';
             document.getElementById('tab2').style.display = tabNum === 2 ? 'block' : 'none';
             document.getElementById('tab3').style.display = tabNum === 3 ? 'block' : 'none';
-            document.getElementById('tab4').style.display = tabNum === 4 ? 'block' : 'none';
 
-            document.getElementById('btnTab1').style.borderBottom = tabNum === 1 ? '4px solid #F58426' : 'none';
-            document.getElementById('btnTab2').style.borderBottom = tabNum === 2 ? '4px solid #F58426' : 'none';
-            document.getElementById('btnTab3').style.borderBottom = tabNum === 3 ? '4px solid #F58426' : 'none';
-            document.getElementById('btnTab4').style.borderBottom = tabNum === 4 ? '4px solid #F58426' : 'none';
-
-            document.getElementById('btnTab1').style.fontWeight = tabNum === 1 ? 'bold' : 'normal';
-            document.getElementById('btnTab2').style.fontWeight = tabNum === 2 ? 'bold' : 'normal';
-            document.getElementById('btnTab3').style.fontWeight = tabNum === 3 ? 'bold' : 'normal';
-            document.getElementById('btnTab4').style.fontWeight = tabNum === 4 ? 'bold' : 'normal';
+            document.getElementById('btnTab1').classList.toggle('active', tabNum === 1);
+            document.getElementById('btnTab2').classList.toggle('active', tabNum === 2);
+            document.getElementById('btnTab3').classList.toggle('active', tabNum === 3);
         }
 
         function showTab(tabNum) {
