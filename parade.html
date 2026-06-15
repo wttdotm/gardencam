@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parade Cam - Knicks Ticker Tape Parade</title>
+
+    <meta property="og:image" content="./logo.png">
+    <meta property="og:title" content="Parade Cam - Knicks Ticker Tape Parade">
+    <meta property="og:description"
+        content="Watch the Knicks ticker tape parade along Broadway using publicly available traffic camera feeds!">
+    <meta property="og:url" content="https://gardencam.wttdotm.com/parade.html">
+
+    <style>
+        body {
+            background-color: black;
+            color: #F58426;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        h1 {
+            font-size: 2em;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 1.5em;
+        }
+
+        .main {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        #logo {
+            max-height: 30vh;
+        }
+
+        #description {
+            max-width: 40vw;
+        }
+
+        .tabButton {
+            flex: 1;
+            background: #006BB6;
+            color: #F58426;
+            border: none;
+            border-bottom: 6px solid transparent;
+            font-size: 0.88em;
+            padding: 10px 0;
+            cursor: pointer;
+            transition: border-bottom 0.15s;
+        }
+        .tabButton.active {
+            border-bottom: 6px solid #F58426;
+            font-weight: bold;
+        }
+
+        .cameraWrap {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .cameraImage {
+            max-width: 100%;
+        }
+
+        .tabContent {
+            padding: 5px 0;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            #description {
+                max-width: 90vw;
+            }
+
+            #logo {
+                max-width: 50vw;
+            }
+
+            .tabContent h2 {
+                font-size: 1.125em;
+                margin-top: 0.2em;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main" id="main">
+        <img id="logo" src="./logo.png" alt="GardenCam Logo">
+
+        <div id="description">
+            <p style="max-width: 800px; margin-bottom: 5px;">
+                By <a href="https://wttdotm.com" target="_blank" rel="noopener" style="color: #F58426;">WTTDOTM</a> <a href="https://wttdotm.com/assets/resume/swe_resume.pdf" target="_blank" rel="noopener" style="color: #F58426;">(hire me)</a><br>
+                <span style="font-size: 0.75em;">contact: wttdotm@gmail.com</span>
+            </p>
+            <p style="max-width: 800px;">
+                Watch the Knicks ticker tape parade along Broadway — live traffic camera feeds from Battery to Chambers!
+            </p>
+        </div>
+
+        <div id="tabHolder" style="margin: 0 auto;">
+            <div id="tabs" style="display: flex; border-bottom: 2px solid #F58426;">
+                <button class="tabButton" onclick="showTab(1)" id="btnTab1">BxB</button>
+                <button class="tabButton" onclick="showTab(2)" id="btnTab2">BxM</button>
+                <button class="tabButton" onclick="showTab(3)" id="btnTab3">BxV</button>
+                <button class="tabButton" onclick="showTab(4)" id="btnTab4">BKxC</button>
+                <button class="tabButton" onclick="showTab(5)" id="btnTab5">BxC</button>
+            </div>
+
+            <div style="text-align: center; font-size: 0.75em; color: #F58426; padding: 4px 0;">
+                gardencam.wttdotm.com/parade | Knicks ticker tape parade
+            </div>
+
+            <div id="tab1" class="tabContent" style="display: block;">
+                <div class="cameraWrap">
+                    <img id="image1" class="cameraImage" src="https://webcams.nyctmc.org/api/cameras/7cfc551d-403d-46a8-aa74-89f472b7136b/image?t=1781556039566" alt="Broadway & Battery">
+                </div>
+                <h2>Broadway &amp; Battery</h2>
+            </div>
+
+            <div id="tab2" class="tabContent" style="display: none;">
+                <div class="cameraWrap">
+                    <img id="image2" class="cameraImage" src="https://webcams.nyctmc.org/api/cameras/08328372-55a2-448a-b180-9b4bce0b8d9e/image?t=1781556056012" alt="Broadway & Morris">
+                </div>
+                <h2>Broadway &amp; Morris</h2>
+            </div>
+
+            <div id="tab3" class="tabContent" style="display: none;">
+                <div class="cameraWrap">
+                    <img id="image3" class="cameraImage" src="https://webcams.nyctmc.org/api/cameras/73b66e92-508f-407c-bada-883ab992fde0/image?t=1781556067522" alt="Broadway & Vesey">
+                </div>
+                <h2>Broadway &amp; Vesey</h2>
+            </div>
+
+            <div id="tab4" class="tabContent" style="display: none;">
+                <div class="cameraWrap">
+                    <img id="image4" class="cameraImage" src="https://webcams.nyctmc.org/api/cameras/e0ac368d-414a-4606-bea5-236e94a2d5b5/image?t=1781556090862" alt="BK Bridge & Centre">
+                </div>
+                <h2>BK Bridge &amp; Centre</h2>
+            </div>
+
+            <div id="tab5" class="tabContent" style="display: none;">
+                <div class="cameraWrap">
+                    <img id="image5" class="cameraImage" src="https://webcams.nyctmc.org/api/cameras/0952329e-6b6f-4286-b5e3-b682eae94e52/image?t=1781556113731" alt="Broadway & Chambers">
+                </div>
+                <h2>Broadway &amp; Chambers</h2>
+            </div>
+        </div>
+
+        <p style="position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); font-size: 0.85em; margin: 0; white-space: nowrap;">
+            <a href="./index.html" style="color: #F58426;">← MSG</a> &nbsp;
+            <a href="./extras.html" style="color: #F58426;">Extras</a> &nbsp;
+            <a href="./ts.html" style="color: #F58426;">Times Square</a> &nbsp;
+            <a href="https://drive.google.com/drive/folders/10sd-jvrk5kQX-mMLMHU_1vdhYn8EvsqS?usp=drive_link" target="_blank" rel="noopener" style="color: #F58426;">All GardenCam footage</a>
+        </p>
+    </div>
+
+    <script>
+        fetch(`https://wemakeinter.net/diyPixel/morryProjPixel.php?event=pageView&project=gardencam`);
+
+        function updateTabUI(tabNum) {
+            for (let i = 1; i <= 5; i++) {
+                document.getElementById('tab' + i).style.display = tabNum === i ? 'block' : 'none';
+                document.getElementById('btnTab' + i).classList.toggle('active', tabNum === i);
+            }
+        }
+
+        function showTab(tabNum) {
+            updateTabUI(tabNum);
+        }
+
+        updateTabUI(1);
+    </script>
+</body>
+
+</html>
