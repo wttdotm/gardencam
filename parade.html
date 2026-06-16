@@ -100,7 +100,7 @@
         <img id="logo" src="./logo.png" alt="GardenCam Logo">
 
         <div id="description">
-            <p style="max-width: 800px; margin-bottom: 5px;">
+            <p id="byline" style="max-width: 800px; margin-bottom: 5px;">
                 By <a href="https://wttdotm.com" target="_blank" rel="noopener" style="color: #F58426;">WTTDOTM</a> <a href="https://wttdotm.com/assets/resume/swe_resume.pdf" target="_blank" rel="noopener" style="color: #F58426;">(hire me)</a><br>
                 <span style="font-size: 0.75em;">contact: wttdotm@gmail.com</span>
             </p>
@@ -168,6 +168,20 @@
 
     <script>
         fetch(`https://wemakeinter.net/diyPixel/morryProjPixel.php?event=pageView&project=gardencam`);
+
+        // kaz easter egg
+        (function() {
+            let buf = '';
+            document.addEventListener('keydown', function(e) {
+                buf += e.key.toLowerCase();
+                if (buf.length > 3) buf = buf.slice(-3);
+                if (buf === 'kaz') {
+                    document.getElementById('byline').innerHTML =
+                        '<span style="font-size: 1.2em;">Hey Room 329</span><br>' +
+                        '<span style="font-size: 0.75em;">look behind you...</span>';
+                }
+            });
+        })();
 
         function updateTabUI(tabNum) {
             for (let i = 1; i <= 5; i++) {
