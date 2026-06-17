@@ -120,47 +120,47 @@
             </div>
 
             <div style="text-align: center; font-size: 0.75em; color: #F58426; padding: 4px 0;">
-                gardencam.wttdotm.com | Knicks ticker tape parade
+                gardencam.wttdotm.com | 2s refresh rate — cams can be buggy
             </div>
 
             <div id="tab1" class="tabContent" style="display: block;">
                 <div class="cameraWrap">
-                    <img id="image1" class="cameraImage" src="https://webcams.nyctmc.org/api/cameras/7cfc551d-403d-46a8-aa74-89f472b7136b/image?t=1781556039566" alt="Broadway & Battery">
+                    <img id="image1" class="cameraImage" src="https://webcams.nyctmc.org/api/cameras/7cfc551d-403d-46a8-aa74-89f472b7136b/image" alt="Broadway & Battery">
                 </div>
                 <h2>Broadway &amp; Battery</h2>
             </div>
 
             <div id="tab2" class="tabContent" style="display: none;">
                 <div class="cameraWrap">
-                    <img id="image2" class="cameraImage" src="https://webcams.nyctmc.org/api/cameras/08328372-55a2-448a-b180-9b4bce0b8d9e/image?t=1781556056012" alt="Broadway & Morris">
+                    <img id="image2" class="cameraImage" src="https://webcams.nyctmc.org/api/cameras/08328372-55a2-448a-b180-9b4bce0b8d9e/image" alt="Broadway & Morris">
                 </div>
                 <h2>Broadway &amp; Morris</h2>
             </div>
 
             <div id="tab3" class="tabContent" style="display: none;">
                 <div class="cameraWrap">
-                    <img id="image3" class="cameraImage" src="https://webcams.nyctmc.org/api/cameras/73b66e92-508f-407c-bada-883ab992fde0/image?t=1781556067522" alt="Broadway & Vesey">
+                    <img id="image3" class="cameraImage" src="https://webcams.nyctmc.org/api/cameras/73b66e92-508f-407c-bada-883ab992fde0/image" alt="Broadway & Vesey">
                 </div>
                 <h2>Broadway &amp; Vesey</h2>
             </div>
 
             <div id="tab4" class="tabContent" style="display: none;">
                 <div class="cameraWrap">
-                    <img id="image4" class="cameraImage" src="https://webcams.nyctmc.org/api/cameras/e0ac368d-414a-4606-bea5-236e94a2d5b5/image?t=1781556090862" alt="BK Bridge & Centre">
+                    <img id="image4" class="cameraImage" src="https://webcams.nyctmc.org/api/cameras/e0ac368d-414a-4606-bea5-236e94a2d5b5/image" alt="BK Bridge & Centre">
                 </div>
                 <h2>BK Bridge &amp; Centre</h2>
             </div>
 
             <div id="tab5" class="tabContent" style="display: none;">
                 <div class="cameraWrap">
-                    <img id="image5" class="cameraImage" src="https://webcams.nyctmc.org/api/cameras/35a808cf-7e4d-4ca5-891d-36ac48518662/image?t=1781731479458" alt="West Side Highway">
+                    <img id="image5" class="cameraImage" src="https://webcams.nyctmc.org/api/cameras/35a808cf-7e4d-4ca5-891d-36ac48518662/image" alt="West Side Highway">
                 </div>
                 <h2>West Side Highway</h2>
             </div>
 
             <div id="tab6" class="tabContent" style="display: none;">
                 <div class="cameraWrap">
-                    <img id="image6" class="cameraImage" src="https://webcams.nyctmc.org/api/cameras/140a20d7-7ae7-409c-8c18-67d6b2ef7b2d/image?t=1781731512899" alt="West & Battery">
+                    <img id="image6" class="cameraImage" src="https://webcams.nyctmc.org/api/cameras/140a20d7-7ae7-409c-8c18-67d6b2ef7b2d/image" alt="West & Battery">
                 </div>
                 <h2>West &amp; Battery</h2>
             </div>
@@ -173,6 +173,20 @@
 
     <script>
         fetch(`https://wemakeinter.net/diyPixel/morryProjPixel.php?event=pageView&project=gardencam`);
+
+        const cameraUrls = {
+            1: "https://webcams.nyctmc.org/api/cameras/7cfc551d-403d-46a8-aa74-89f472b7136b/image",
+            2: "https://webcams.nyctmc.org/api/cameras/08328372-55a2-448a-b180-9b4bce0b8d9e/image",
+            3: "https://webcams.nyctmc.org/api/cameras/73b66e92-508f-407c-bada-883ab992fde0/image",
+            4: "https://webcams.nyctmc.org/api/cameras/e0ac368d-414a-4606-bea5-236e94a2d5b5/image",
+            5: "https://webcams.nyctmc.org/api/cameras/35a808cf-7e4d-4ca5-891d-36ac48518662/image",
+            6: "https://webcams.nyctmc.org/api/cameras/140a20d7-7ae7-409c-8c18-67d6b2ef7b2d/image"
+        };
+
+        let activeTab = 1;
+        let refreshTimeout = null;
+        let refreshGeneration = 0;
+        let currentlyLoading = false;
 
         // kaz easter egg
         (function() {
@@ -196,10 +210,66 @@
         }
 
         function showTab(tabNum) {
+            activeTab = tabNum;
             updateTabUI(tabNum);
+            startActiveTabPolling(true);
         }
 
-        updateTabUI(1);
+        function startActiveTabPolling(immediate = false) {
+            refreshGeneration++;
+            currentlyLoading = false;
+
+            if (refreshTimeout) {
+                clearTimeout(refreshTimeout);
+                refreshTimeout = null;
+            }
+
+            const myGeneration = refreshGeneration;
+
+            const loadOnce = () => {
+                if (currentlyLoading) return;
+
+                const tabAtStart = activeTab;
+                const imgEl = document.getElementById(`image${tabAtStart}`);
+
+                if (!imgEl || !cameraUrls[tabAtStart]) return;
+
+                currentlyLoading = true;
+
+                const nextSrc = `${cameraUrls[tabAtStart]}?cacheAvoidance=${Date.now()}`;
+
+                imgEl.onload = () => {
+                    if (myGeneration !== refreshGeneration || tabAtStart !== activeTab) return;
+                    currentlyLoading = false;
+                    refreshTimeout = setTimeout(() => {
+                        if (myGeneration === refreshGeneration && tabAtStart === activeTab) {
+                            loadOnce();
+                        }
+                    }, 2000);
+                };
+
+                imgEl.onerror = () => {
+                    if (myGeneration !== refreshGeneration || tabAtStart !== activeTab) return;
+                    currentlyLoading = false;
+                    refreshTimeout = setTimeout(() => {
+                        if (myGeneration === refreshGeneration && tabAtStart === activeTab) {
+                            loadOnce();
+                        }
+                    }, 2000);
+                };
+
+                imgEl.src = nextSrc;
+            };
+
+            if (immediate) {
+                loadOnce();
+            } else {
+                refreshTimeout = setTimeout(loadOnce, 2000);
+            }
+        }
+
+        updateTabUI(activeTab);
+        startActiveTabPolling(true);
     </script>
 </body>
 
