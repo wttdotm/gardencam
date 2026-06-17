@@ -115,7 +115,8 @@
                 <button class="tabButton" onclick="showTab(2)" id="btnTab2">BxM</button>
                 <button class="tabButton" onclick="showTab(3)" id="btnTab3">BxV</button>
                 <button class="tabButton" onclick="showTab(4)" id="btnTab4">BKxC</button>
-                <button class="tabButton" onclick="showTab(5)" id="btnTab5">BxC</button>
+                <button class="tabButton" onclick="showTab(5)" id="btnTab5">WSH</button>
+                <button class="tabButton" onclick="showTab(6)" id="btnTab6">WxB</button>
             </div>
 
             <div style="text-align: center; font-size: 0.75em; color: #F58426; padding: 4px 0;">
@@ -152,9 +153,16 @@
 
             <div id="tab5" class="tabContent" style="display: none;">
                 <div class="cameraWrap">
-                    <img id="image5" class="cameraImage" src="https://webcams.nyctmc.org/api/cameras/0952329e-6b6f-4286-b5e3-b682eae94e52/image?t=1781556113731" alt="Broadway & Chambers">
+                    <img id="image5" class="cameraImage" src="https://webcams.nyctmc.org/api/cameras/35a808cf-7e4d-4ca5-891d-36ac48518662/image?t=1781731479458" alt="West Side Highway">
                 </div>
-                <h2>Broadway &amp; Chambers</h2>
+                <h2>West Side Highway</h2>
+            </div>
+
+            <div id="tab6" class="tabContent" style="display: none;">
+                <div class="cameraWrap">
+                    <img id="image6" class="cameraImage" src="https://webcams.nyctmc.org/api/cameras/140a20d7-7ae7-409c-8c18-67d6b2ef7b2d/image?t=1781731512899" alt="West & Battery">
+                </div>
+                <h2>West &amp; Battery</h2>
             </div>
         </div>
 
@@ -184,7 +192,7 @@
         })();
 
         function updateTabUI(tabNum) {
-            for (let i = 1; i <= 5; i++) {
+            for (let i = 1; i <= 6; i++) {
                 document.getElementById('tab' + i).style.display = tabNum === i ? 'block' : 'none';
                 document.getElementById('btnTab' + i).classList.toggle('active', tabNum === i);
             }
