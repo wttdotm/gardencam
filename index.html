@@ -117,6 +117,8 @@
                 <button class="tabButton" onclick="showTab(4)" id="btnTab4">BKxC</button>
                 <button class="tabButton" onclick="showTab(5)" id="btnTab5">WSH</button>
                 <button class="tabButton" onclick="showTab(6)" id="btnTab6">WxB</button>
+                <button class="tabButton" onclick="showTab(7)" id="btnTab7">ChxV</button>
+                <button class="tabButton" onclick="showTab(8)" id="btnTab8">ChxP</button>
             </div>
 
             <div style="text-align: center; font-size: 0.75em; color: #F58426; padding: 4px 0;">
@@ -164,6 +166,20 @@
                 </div>
                 <h2>West &amp; Battery</h2>
             </div>
+
+            <div id="tab7" class="tabContent" style="display: none;">
+                <div class="cameraWrap">
+                    <img id="image7" class="cameraImage" src="https://webcams.nyctmc.org/api/cameras/5beee073-18a8-4349-af6b-75eff7a78371/image" alt="Church & Vesey">
+                </div>
+                <h2>Church &amp; Vesey</h2>
+            </div>
+
+            <div id="tab8" class="tabContent" style="display: none;">
+                <div class="cameraWrap">
+                    <img id="image8" class="cameraImage" src="https://webcams.nyctmc.org/api/cameras/b222af52-75f2-4588-80ef-354bb7c159c8/image" alt="Church & Park Pl.">
+                </div>
+                <h2>Church &amp; Park Pl.</h2>
+            </div>
         </div>
 
         <p style="position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); font-size: 0.85em; margin: 0; white-space: nowrap;">
@@ -180,7 +196,9 @@
             3: "https://webcams.nyctmc.org/api/cameras/73b66e92-508f-407c-bada-883ab992fde0/image",
             4: "https://webcams.nyctmc.org/api/cameras/e0ac368d-414a-4606-bea5-236e94a2d5b5/image",
             5: "https://webcams.nyctmc.org/api/cameras/35a808cf-7e4d-4ca5-891d-36ac48518662/image",
-            6: "https://webcams.nyctmc.org/api/cameras/140a20d7-7ae7-409c-8c18-67d6b2ef7b2d/image"
+            6: "https://webcams.nyctmc.org/api/cameras/140a20d7-7ae7-409c-8c18-67d6b2ef7b2d/image",
+            7: "https://webcams.nyctmc.org/api/cameras/5beee073-18a8-4349-af6b-75eff7a78371/image",
+            8: "https://webcams.nyctmc.org/api/cameras/b222af52-75f2-4588-80ef-354bb7c159c8/image"
         };
 
         let activeTab = 1;
@@ -203,7 +221,7 @@
         })();
 
         function updateTabUI(tabNum) {
-            for (let i = 1; i <= 6; i++) {
+            for (let i = 1; i <= 8; i++) {
                 document.getElementById('tab' + i).style.display = tabNum === i ? 'block' : 'none';
                 document.getElementById('btnTab' + i).classList.toggle('active', tabNum === i);
             }
